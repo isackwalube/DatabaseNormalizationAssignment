@@ -25,7 +25,7 @@ to improve data integrity and ensure efficient data management.
 
 ## *Code Block*
 
-Create a non-normalized table, and add the columns
+1. Create a non-normalized table, and add the columns
 
 `CREATE TABLE Parks_Info (
     ID SERIAL PRIMARY KEY,  
@@ -35,7 +35,7 @@ Create a non-normalized table, and add the columns
 
 
 
-Insert data into the table
+2. Insert data into the table
 
 `INSERT INTO Parks_Info (ParkName, Facilities) VALUES 
 ('Central Park', 'Playground, Restroom, Picnic area'),
@@ -44,7 +44,7 @@ Insert data into the table
 ![Parks_Info](https://github.com/isackwalube/in346/assets/156945477/e4ddee70-3755-430d-afcc-e1959e6417ae)
 
 
--- Create a Parks table
+3. Create a Parks table
 
 `CREATE TABLE Parks (
     ParkID SERIAL PRIMARY KEY,
@@ -52,14 +52,14 @@ Insert data into the table
 );`
 
 
-Insert data into the new table
+4. Insert data into the new table
 
 INSERT INTO Parks (ParkName)
 SELECT DISTINCT ParkName FROM Parks_Info;
 ![Parks](https://github.com/isackwalube/in346/assets/156945477/842d21b7-0054-4d87-ad3f-5c13dd5a90eb)
 
 
-Create a facilities table and foreign key relating the two tables
+5. Create a facilities table and foreign key relating the two tables
 
 `CREATE TABLE Facilities (
     FacilityID SERIAL PRIMARY KEY,
@@ -69,7 +69,7 @@ Create a facilities table and foreign key relating the two tables
 );`		
 
 
-Insert data into the new table 
+6. Insert data into the new table 
 
 `INSERT INTO Facilities (ParkID, FacilityName) VALUES
 (1, 'Playground'),
@@ -83,7 +83,7 @@ Insert data into the new table
 
 
 ## **2NF**
-Create a new table 
+1. Create a new table 
 
 `CREATE TABLE ParkFacilities (
     FacilityID SERIAL PRIMARY KEY,
@@ -91,7 +91,7 @@ Create a new table
 );`
 
 
-Insert data into the table
+2. Insert data into the table
 
 `INSERT INTO ParkFacilities (FacilityName) VALUES 
 ('Playground'),('Restroom'), ('Picnic area'), ('Bike Path')`
@@ -99,18 +99,18 @@ Insert data into the table
 ![ParkFacilities](https://github.com/isackwalube/in346/assets/156945477/4829c757-9e68-4f46-808e-b06b76460a67)
 
 
-Add column(ParkFacilityID) into the the Facilities table
+3. Add column(ParkFacilityID) into the the Facilities table
 
 `ALTER TABLE Facilities ADD COLUMN ParkFacilityID INT;`
 
 
-Link the facility in ‘Facilities’ to a unique identifier in ‘ParkFacilities’
+4. Link the facility in ‘Facilities’ to a unique identifier in ‘ParkFacilities’
 
 `ALTER TABLE Facilities
 ADD CONSTRAINT fk_parkfacilityid FOREIGN KEY (ParkFacilityID) REFERENCES ParkFacilities(FacilityID);`
 
 
-Add a foreign key constraint to ‘Facilities’ to enforce the relationship between ‘Facilities’ and ‘ParkFacilities’.
+4. Add a foreign key constraint to ‘Facilities’ to enforce the relationship between ‘Facilities’ and ‘ParkFacilities’.
 Ensuring that every ‘FacilityID’ in ‘Facilities’ corresponds to a valid ‘FacilityID’ in ‘ParkFacilities’.
 
 `UPDATE Facilities
@@ -123,7 +123,7 @@ SET ParkFacilityID = (
 ![Facilities_Table](https://github.com/isackwalube/in346/assets/156945477/ad0ff3a9-ffcf-447e-ae94-24cfb3195e5d)
 
 
-Make changes to Facilities by deleting the column FacilityName.
+5. Make changes to Facilities by deleting the column FacilityName.
 
 `ALTER TABLE Facilities DROP COLUMN FacilityName;;`
 
@@ -133,7 +133,7 @@ Make changes to Facilities by deleting the column FacilityName.
 
 
 
-### *Challenges*
+### *Challenge*
 
    - The only challenge encountered in this assignment was importing data from another table. This dataset was small, therefore manual import was possible.
 For big data cases, it'd be tiresome to type in all those rows, meaning there is a need to find an automatic query to import the data without typing manually. 
