@@ -23,7 +23,7 @@ to improve data integrity and ensure efficient data management.
   - For example, if you have a composite primary key in a table and some non-key attributes depend only on one part of that 
     composite key, you would decompose the table into multiple tables to eliminate such partial dependencies, similar to what we did to the first *Facilities* table where we further broke it down and created the *ParkFacilities* table
 
-## *Code Block*
+## *Part 2: Code Block*
 
 1. Create a non-normalized table, and add the columns
 
